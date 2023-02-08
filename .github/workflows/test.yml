@@ -15,7 +15,8 @@ jobs:
           fetch-depth: 3
 
       - name: Get out
-        env: ${{ secrets.PAT }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           LAST_JOB_STATUS=$(gh run list --workflow test.yml)
           echo "$LAST_JOB_STATUS"
