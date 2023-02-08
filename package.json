@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build --filter=[d9965cbc0c0adc3c779501b480b189caad9a9bc6...77ed1e737548839c3baa540f33c871f7cff3e2fd]",
+    "build": "turbo run build --filter=[d9965cbc0c0adc3c779501b480b189caad9a9bc6...8752a74aa9d7f2ede4fe1f390823b165ec4c97c5]",
     "dev": "turbo run dev",
     "lint": "turbo run lint"
   },
@@ -13,7 +13,7 @@
     "eslint-config-custom": "*",
     "eslint": "7.32.0",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "1.2.16"
   },
   "packageManager": "npm@8.12.1"
 }
