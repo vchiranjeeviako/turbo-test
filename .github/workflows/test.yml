@@ -21,7 +21,9 @@ jobs:
           cp config.yaml ~/.config/verdaccio/config.yaml
 
       - name: Set PWD env variable
-        run: export CACHE_PATH=$(pwd)+'cache'
+        run: |
+          export CACHE_PATH=$(pwd)+'cache'
+          echo $CACHE_PATH
 
       - name: Cache Verdaccio Data
         id: cache-verdaccio
