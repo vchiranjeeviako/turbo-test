@@ -7,7 +7,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint --filter='./apps/docs/*'"
+    "lint": "turbo run lint --filter=[HEAD]"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
