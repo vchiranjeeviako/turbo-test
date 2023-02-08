@@ -22,8 +22,8 @@ jobs:
 
       - name: Set PWD env variable
         run: |
-          export CACHE_PATH=$(pwd)+'cache'
-          echo $CACHE_PATH
+          export VERDACCIO_STORAGE_PATH=$(pwd)/cache
+          echo $VERDACCIO_STORAGE_PATH
 
       - name: Cache Verdaccio Data
         id: cache-verdaccio
