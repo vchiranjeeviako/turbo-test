@@ -41,7 +41,7 @@ jobs:
           ls -la
         
       - name: Change
-        run:
+        run: |
           cd ~/
           ls -la
 
