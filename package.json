@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build --filter=[d9965cbc0c0adc3c779501b480b189caad9a9bc6...8752a74aa9d7f2ede4fe1f390823b165ec4c97c5]",
+    "build": "turbo run build --filter=[HEAD^1]",
     "dev": "turbo run dev",
     "lint": "turbo run lint"
   },
