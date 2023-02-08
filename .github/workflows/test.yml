@@ -22,10 +22,8 @@ jobs:
 
       - name: Set PWD env variable
         run: |
-          export VERDACCIO_STORAGE_PATH=$(pwd)
+          export VERDACCIO_STORAGE_PATH=/home/runner/work/turbo-test/cache
           echo $VERDACCIO_STORAGE_PATH
-          ls -la
-          cd turbo-test
           ls -la
 
       - name: Cache Verdaccio Data
