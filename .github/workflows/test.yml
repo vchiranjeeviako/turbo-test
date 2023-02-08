@@ -24,6 +24,9 @@ jobs:
         run: |
           export VERDACCIO_STORAGE_PATH=$(pwd)/cache
           echo $VERDACCIO_STORAGE_PATH
+          ls -la
+          cd turbo-test
+          ls -la
 
       - name: Cache Verdaccio Data
         id: cache-verdaccio
