@@ -25,6 +25,8 @@ jobs:
           export VERDACCIO_STORAGE_PATH=/home/runner/work/turbo-test/cache
           echo $VERDACCIO_STORAGE_PATH
           ls -la
+          cd ..
+          ls -la
 
       - name: Cache Verdaccio Data
         id: cache-verdaccio
