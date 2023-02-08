@@ -26,7 +26,7 @@ jobs:
         env:
           cache-name: cache-verdaccio-data
         with:
-          path: home/runner/.config/verdaccio/storage
+          path: ~/.config/verdaccio/storage
           key: cache-npm-${{ hashFiles('./package-lock.json')}}
           restore-keys: cache-npm-
 
@@ -43,6 +43,8 @@ jobs:
       - name: Change
         run: |
           cd ~/
+          ls -la
+          cd ~/.config/verdaccio
           ls -la
 
       - name: Install dependencies
