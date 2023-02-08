@@ -22,8 +22,12 @@ jobs:
 
       - name: Set PWD env variable
         run: |
-          export VERDACCIO_STORAGE_PATH=/home/runner/work/turbo-test/cache
+          export VERDACCIO_STORAGE=/home/runner/work/turbo-test/cache
           echo $VERDACCIO_STORAGE_PATH
+          ls -la
+          cd ..
+          ls -la
+          cd ..
           ls -la
           cd ..
           ls -la
@@ -36,7 +40,7 @@ jobs:
         env:
           cache-name: cache-verdaccio-data
         with:
-          path: $VERDACCIO_STORAGE_PATH
+          path: $VERDACCIO_STORAGE
           key: cache-npm-${{ hashFiles('./package-lock.json')}}
           restore-keys: cache-npm-
 
