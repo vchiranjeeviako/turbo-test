@@ -35,7 +35,7 @@ jobs:
           ls -la
           cd verdaccio
           ls -la
-          
+
       - name: Cache Verdaccio Data
         id: cache-verdaccio
         uses: actions/cache@v3
@@ -53,6 +53,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --registry=http://localhost:4873
+
+      - name: After installing
+        run:  ls -la
 
       - name: Last
         run: echo "Done."
