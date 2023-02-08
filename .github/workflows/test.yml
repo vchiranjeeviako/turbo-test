@@ -24,3 +24,9 @@ jobs:
 
       - name: Build command
         run: npm run lint
+
+      - name: Get out
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: out
+        run: echo "$set-output"
