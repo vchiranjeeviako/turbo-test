@@ -10,7 +10,7 @@
 # https://verdaccio.org/docs/best
 
 # path to a directory with all packages
-storage: ~/cache
+storage: ./storage
 # path to a directory with plugins to include
 plugins: ./plugins
 

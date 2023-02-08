@@ -20,13 +20,16 @@ jobs:
           mkdir ~/.config/verdaccio
           cp config.yaml ~/.config/verdaccio/config.yaml
 
+      - name: Set PWD env variable
+        run: export CACHE_PATH=$(pwd)+'cache'
+
       - name: Cache Verdaccio Data
         id: cache-verdaccio
         uses: actions/cache@v3
         env:
           cache-name: cache-verdaccio-data
         with:
-          path: ~/cache
+          path: $CACHE_PATH
           key: cache-npm-${{ hashFiles('./package-lock.json')}}
           restore-keys: cache-npm-
 
