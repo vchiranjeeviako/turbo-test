@@ -20,17 +20,13 @@ jobs:
           mkdir ~/.config/verdaccio
           cp config.yaml ~/.config/verdaccio/config.yaml
 
-      - name: Set PWD env variable
-        run: |
-          export VERDACCIO_STORAGE=/home/runner/.config/verdaccio/storage
-
       - name: Cache Verdaccio Data
         id: cache-verdaccio
         uses: actions/cache@v3
         env:
           cache-name: cache-verdaccio-data
         with:
-          path: $VERDACCIO_STORAGE
+          path: home/runner/.config/verdaccio/storage
           key: cache-npm-${{ hashFiles('./package-lock.json')}}
           restore-keys: cache-npm-
 
