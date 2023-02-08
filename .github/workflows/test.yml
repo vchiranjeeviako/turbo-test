@@ -59,6 +59,7 @@ jobs:
           cd ../../..
           cd ~/.config/verdaccio
           ls -la
+          pwd
 
       - name: Last
         run: echo "Done."
