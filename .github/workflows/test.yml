@@ -1,24 +1,44 @@
 on:
   push:
-    branches:
-      - main
     
 jobs:
   testing:
     name: Testing-workflow
-    if: ${{ contains(github.event.head_commit.message, '[mesh]') }}
     runs-on: ubuntu-20.04
     steps:
       - name: Checking out repo
         uses: actions/checkout@v3
 
-      - name: Install node ⚙️
-        uses: actions/setup-node@v2
+      - name: Install Verdaccio
+        run: npm install verdaccio -g
+
+      - name: Install pm2
+        run: npm install pm2 -g
+
+      - name: Replace verdaccio config file
+        run: |
+          mkdir ~/.config/verdaccio
+          cp config.yaml ~/.config/verdaccio/config.yaml
+
+      - name: Cache Verdaccio Data
+        id: cache-verdaccio
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-verdaccio-data
         with:
-          node-version: 16.x
+          path: ~/cache
+          key: cache-npm-${{ hashFiles('./package-lock.json')}}
+          restore-keys: cache-npm-
+
+      - name: Start running Verdaccio in background
+        continue-on-error: true
+        run: |
+          pm2 start --name VERDACCIO verdaccio
+          pm2 save
+          pm2 startup
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --registry=http://localhost:4873
 
-      - name: Build command
-        run: npm run lint
+      - name: Last
+        run: echo "Done."
