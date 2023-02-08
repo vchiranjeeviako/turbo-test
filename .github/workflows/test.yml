@@ -27,6 +27,8 @@ jobs:
           ls -la
           cd ..
           ls -la
+          cd ..
+          ls -la
 
       - name: Cache Verdaccio Data
         id: cache-verdaccio
@@ -34,7 +36,7 @@ jobs:
         env:
           cache-name: cache-verdaccio-data
         with:
-          path: $CACHE_PATH
+          path: $VERDACCIO_STORAGE_PATH
           key: cache-npm-${{ hashFiles('./package-lock.json')}}
           restore-keys: cache-npm-
 
