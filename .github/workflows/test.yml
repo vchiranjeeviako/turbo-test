@@ -31,9 +31,11 @@ jobs:
           ls -la
           cd ..
           ls -la
-          cd ..
+          cd .config
           ls -la
-
+          cd verdaccio
+          ls -la
+          
       - name: Cache Verdaccio Data
         id: cache-verdaccio
         uses: actions/cache@v3
