@@ -22,7 +22,7 @@ jobs:
 
       - name: Set PWD env variable
         run: |
-          export VERDACCIO_STORAGE_PATH=$(pwd)/cache
+          export VERDACCIO_STORAGE_PATH=$(pwd)
           echo $VERDACCIO_STORAGE_PATH
           ls -la
           cd turbo-test
