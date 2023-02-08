@@ -32,31 +32,8 @@ jobs:
 
       - name: Start running Verdaccio in background
         continue-on-error: true
-        run: |
-          pm2 start --name VERDACCIO verdaccio
-          cd ../../..
-          cd ..
-          ls -la
-          cd ..
-          ls -la
-        
-      - name: Change
-        run: |
-          cd ~/
-          ls -la
-          cd ~/.config/verdaccio
-          ls -la
+        run: pm2 start --name VERDACCIO verdaccio
 
       - name: Install dependencies
         run: npm ci --registry=http://localhost:4873
 
-      - name: After installing
-        run: |
-          cd ../../..
-          cd ..
-          ls -la
-          cd ..
-          ls -la
-
-      - name: Last
-        run: echo "Done."
