@@ -28,13 +28,16 @@ jobs:
           cache-name: cache-nm
         with:
           path: node_modules
-          key: cache-npm-${{hashFiles('./package.json')}}-${{ hashFiles('./package-lock.json')}}
+          key: cache-npm-t-${{hashFiles('./package.json')}}-${{ hashFiles('./package-lock.json')}}
           # restore-keys: cache-npm-
 
       - name: Install dependencies
         if: ${{ steps.cache-nm.outputs.cache-hit != 'true' }}
         continue-on-error: true
         run: npm ci
+
+      - name: Run lint
+        run: npm run lint
 
       # - name: out
       #   run: |
