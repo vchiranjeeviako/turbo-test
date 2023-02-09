@@ -19,31 +19,32 @@ jobs:
         run: |
           mkdir ~/.config/verdaccio
           cp config.yaml ~/.config/verdaccio/config.yaml
+          echo $HOME
 
-      - name: Cache Verdaccio Data
-        id: cache-verdaccio
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-verdaccio-data
-        with:
-          path: ~/.config/verdaccio/storage
-          key: cache-npm-${{ hashFiles('./package-lock.json')}}
-          restore-keys: cache-npm-
+      # - name: Cache Verdaccio Data
+      #   id: cache-verdaccio
+      #   uses: actions/cache@v3
+      #   env:
+      #     cache-name: cache-verdaccio-data
+      #   with:
+      #     path: ~/.config/verdaccio/storage
+      #     key: cache-npm-${{ hashFiles('./package-lock.json')}}
+      #     restore-keys: cache-npm-
 
-      - name: Start running Verdaccio in background
-        continue-on-error: true
-        run: pm2 start --name VERDACCIO verdaccio
+      # - name: Start running Verdaccio in background
+      #   continue-on-error: true
+      #   run: pm2 start --name VERDACCIO verdaccio
 
-      - name: Install dependencies
-        run: npm ci --registry=http://localhost:4873
+      # - name: Install dependencies
+      #   run: npm ci --registry=http://localhost:4873
 
-      - name: out
-        run: |
-          cd ~/.config/verdaccio
-          ls -la
+      # - name: out
+      #   run: |
+      #     cd ~/.config/verdaccio
+      #     ls -la
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: verdaccio-logs
-          path: ~/verdaccio.log
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: verdaccio-logs
+      #     path: ~/verdaccio.log
