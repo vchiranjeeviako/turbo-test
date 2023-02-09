@@ -9,42 +9,40 @@ jobs:
       - name: Checking out repo
         uses: actions/checkout@v3
 
-      - name: Install Verdaccio
-        run: npm install verdaccio -g
+      # - name: Install Verdaccio
+      #   run: npm install verdaccio -g
 
-      - name: Install pm2
-        run: npm install pm2 -g
+      # - name: Install pm2
+      #   run: npm install pm2 -g
 
-      - name: Replace verdaccio config file
-        run: |
-          mkdir ~/.config/verdaccio
-          cp config.yaml ~/.config/verdaccio/config.yaml
-          echo $HOME
+      # - name: Replace verdaccio config file
+      #   run: |
+      #     mkdir ~/.config/verdaccio
+      #     cp config.yaml ~/.config/verdaccio/config.yaml
+      #     echo $HOME
 
-      - name: Cache Verdaccio Data
-        id: cache-verdaccio
+      - name: Cache node_modules
+        id: cache-nm
         uses: actions/cache@v3
         env:
-          cache-name: cache-verdaccio-data
+          cache-name: cache-nm
         with:
-          path: ~/.config/verdaccio/storage
-          key: cache-npm-${{ hashFiles('./package-lock.json')}}
-          restore-keys: cache-npm-
-
-      - name: Start running Verdaccio in background
-        continue-on-error: true
-        run: pm2 start --name VERDACCIO verdaccio
+          path: node_modules
+          key: cache-npm-${{hashFiles('./package.json')}}-${{ hashFiles('./package-lock.json')}}
+          # restore-keys: cache-npm-
 
       - name: Install dependencies
-        run: npm ci --registry=http://localhost:4873
+        if: $${{ steps.cache-nm.outputs.cache-hit != true }}
+        continue-on-error: true
+        run: npm ci
 
-      - name: out
-        run: |
-          cd ~/.config/verdaccio
-          ls -la
+      # - name: out
+      #   run: |
+      #     cd ~/.config/verdaccio
+      #     ls -la
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: verdaccio-logs
-          path: /home/runner/verdaccio.log
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: verdaccio-logs
+      #     path: /home/runner/verdaccio.log
