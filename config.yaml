@@ -181,7 +181,7 @@ middlewares:
 # https://verdaccio.org/docs/logger
 # log settings
 # logs: { type: stdout, format: pretty, level: http }
-logs: { type: file, path: /home/runner/verdaccio.log, level: http, format: pretty-timestamped }
+logs: { type: file, path: /home/runner/verdaccio.log, level: http, format: pretty-timestamped, colors: true }
 #experiments:
 #  # support for npm token command
 #  token: false
