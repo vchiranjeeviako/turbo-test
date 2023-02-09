@@ -41,9 +41,9 @@ jobs:
         run: |
           cd ~/.config/verdaccio
           ls -la
-          
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: verdaccio-logs
-          path: ~/.config/verdaccio/verdaccio.log
+          path: ~/verdaccio.log
