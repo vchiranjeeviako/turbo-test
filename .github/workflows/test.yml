@@ -11,43 +11,11 @@ jobs:
         with:
           fetch-depth: 3
 
-      # - name: Install Verdaccio
-      #   run: npm install verdaccio -g
-
-      # - name: Install pm2
-      #   run: npm install pm2 -g
-
-      # - name: Replace verdaccio config file
-      #   run: |
-      #     mkdir ~/.config/verdaccio
-      #     cp config.yaml ~/.config/verdaccio/config.yaml
-      #     echo $HOME
-
-      - name: Cache node_modules
-        id: cache-nm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-nm
+      - name: Upload artifacts
+        uses: actions/download-artifact@v3
         with:
-          path: node_modules
-          key: cache-npm-t1-${{hashFiles('./package.json')}}-${{ hashFiles('./package-lock.json')}}
-          # restore-keys: cache-npm-
+          name: verdaccio-logs
+          path: /home/runner/verdaccio.log
 
-      - name: Install dependencies
-        if: ${{ steps.cache-nm.outputs.cache-hit != 'true' }}
-        continue-on-error: true
-        run: npm ci
-
-      - name: Run lint
-        run: npm run lint
-
-      # - name: out
-      #   run: |
-      #     cd ~/.config/verdaccio
-      #     ls -la
-
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: verdaccio-logs
-      #     path: /home/runner/verdaccio.log
+      - name: Something
+        run: echo "Came here"
