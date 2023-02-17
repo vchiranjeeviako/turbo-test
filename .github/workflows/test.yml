@@ -9,15 +9,8 @@ jobs:
       - name: Checking out repo
         uses: actions/checkout@v3
 
-      - name: Upload artifacts
-        id: download
-        uses: actions/download-artifact@v3
-        with:
-          name: verdaccio-logs
-          path: /home/runner/verdaccio.log
-
       - name: Something
-        if: failure() && steps.download.outcome == 'failure'
+        if: always() && steps.0.outcome == 'failure'
         run: |
           echo "came here"
         
