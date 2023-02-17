@@ -10,16 +10,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Upload artifacts
+        id: download
         uses: actions/download-artifact@v3
         with:
           name: verdaccio-logs
           path: /home/runner/verdaccio.log
 
       - name: Something
-        if: always()
+        if: ${{ steps.download.outputs == 'success' }}
         run: |
-          OUTPUT=${{ steps.0.outputs }}
-          echo "$OUTPUT"
+          echo "came here"
         
       - name: Something else
         run: echo "should come"
