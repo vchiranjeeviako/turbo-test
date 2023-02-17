@@ -17,7 +17,7 @@ jobs:
           path: /home/runner/verdaccio.log
 
       - name: Something
-        if: ${{ steps.download.outputs == 'success' }}
+        if: ${{ steps.download.outputs == 'failure' }}
         run: |
           echo "came here"
         
