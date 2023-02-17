@@ -16,5 +16,8 @@ jobs:
           path: /home/runner/verdaccio.log
 
       - name: Something
-        continue-on-error: true
+        if: always()
         run: echo "Came here"
+        
+      - name: Something else
+        run: echo "should come"
