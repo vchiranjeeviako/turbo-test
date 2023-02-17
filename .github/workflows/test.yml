@@ -17,7 +17,7 @@ jobs:
           path: /home/runner/verdaccio.log
 
       - name: Something
-        if: steps.download.outcome == 'failure'
+        if: steps.download.conclusion == 'failure'
         run: |
           echo "came here"
         
