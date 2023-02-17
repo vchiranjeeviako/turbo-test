@@ -10,8 +10,14 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v3
 
+      - name: Upload sst-apis stack outputs
+        uses: actions/download-artifact@v3
+        continue-on-error: true
+        with:
+          name: sst-apis-stacks
+          path: backend/sst-api/
+
       - name: Something
-        if: always() && steps.checkout-repo.outcome == 'failure'
         run: |
           echo "came here"
         
