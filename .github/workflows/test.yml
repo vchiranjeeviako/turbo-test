@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checking out repo
+        id: checkout-repo
         uses: actions/checkout@v3
 
       - name: Something
-        if: always() && steps.0.outcome == 'failure'
+        if: always() && steps.checkout-repo.outcome == 'failure'
         run: |
           echo "came here"
         
