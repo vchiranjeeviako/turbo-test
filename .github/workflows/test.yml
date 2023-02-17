@@ -17,7 +17,9 @@ jobs:
 
       - name: Something
         if: always()
-        run: echo "Came here"
+        run: |
+          OUTPUT=${{ steps.0.outputs }}
+          echo "$OUTPUT"
         
       - name: Something else
         run: echo "should come"
