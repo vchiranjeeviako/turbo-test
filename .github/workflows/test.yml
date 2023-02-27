@@ -31,7 +31,7 @@ jobs:
           GIT_MERGE_AUTOEDIT: "no"
         run: |
           echo "$GIT_MERGE_AUTOEDIT"
-          git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
+          git rebase --exec 'git commit --amend --no-edit -n -S' -i --root -X theirs
 
       - name: Change the remote origin
         run: |
