@@ -28,7 +28,7 @@ jobs:
 
       - name: Get all the commits signed
         env:
-          GIT_MERGE_AUTOEDIT: no
+          GIT_MERGE_AUTOEDIT: "no"
         run: |
           echo "$GIT_MERGE_AUTOEDIT"
           git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
