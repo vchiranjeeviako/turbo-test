@@ -30,7 +30,6 @@ jobs:
       - name: Get all the commits signed
         run: |
           gpg --version
-          echo "test" | gpg --clearsign
           gpg --list-secret-keys --keyid-format=long 
           git commit -S -m "test" --allow-empty
 
