@@ -28,7 +28,6 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          git config --global --unset gpg.program
           git config --global user.signingkey 92B70E620C9E4A71
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
