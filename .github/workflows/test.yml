@@ -28,17 +28,7 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          gpg --version
-          ls -la
-          echo "Line 2"
-          cd ..
-          ls -la
-          echo "Line 3"
-          cd ..
-          ls -la
-          echo "Line 4"
-          cd ..
-          ls -la
+          gpg --list-keys
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
       - name: Change the remote origin
