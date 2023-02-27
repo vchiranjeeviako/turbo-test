@@ -13,6 +13,11 @@ jobs:
       - name: Checkout the monorepo
         uses: actions/checkout@v3
 
+      - name: Filter the directory from inputs
+        run: |
+          git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
+          echo "${{ secrets.GPG_PRIVATE_KEY }}"
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v5
         with:
@@ -21,11 +26,10 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true 
 
-      - name: Filter the directory from inputs
+      - name: Get all the commits signed
         run: |
-          git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} 'git commit-tree -S "$@";' -- --all
-          echo "${{ secrets.GPG_PRIVATE_KEY }}"
-          
+          GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
+
       - name: Change the remote origin
         run: |
           git remote rm origin
