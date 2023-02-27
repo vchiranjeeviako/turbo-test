@@ -28,7 +28,7 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          git config --global gpg.program gpg
+          git config --global user.signingkey ${{ secrets.GPG_PRIVATE_KEY }}
           git config --global commit.gpgsign true
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
