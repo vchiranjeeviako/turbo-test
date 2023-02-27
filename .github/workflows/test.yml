@@ -14,7 +14,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Filter the directory from inputs
-        run: git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
+        run: |
+          git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
+          echo "${{ secrets.GPG_PRIVATE_KEY }}"
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v5
