@@ -29,6 +29,8 @@ jobs:
 
       - name: Get all the commits signed
         run: |
+          gpg --version
+          echo "test" | gpg --clearsign
           git commit -S -m "test" --allow-empty
 
       - name: Change the remote origin
