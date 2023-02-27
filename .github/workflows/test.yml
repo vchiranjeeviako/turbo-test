@@ -21,6 +21,7 @@ jobs:
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v5
         with:
+          git_config_global: true
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           git_user_signingkey: true
@@ -28,8 +29,6 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          git config --global user.signingkey C7C22626524C3A97
-          git config --global commit.gpgsign true
           git commit -S -m "test" --allow-empty
 
       - name: Change the remote origin
