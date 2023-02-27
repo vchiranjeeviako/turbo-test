@@ -28,6 +28,8 @@ jobs:
 
       - name: Get all the commits signed
         run: |
+          sudo apt-get update
+          sudo apt-get -y install gpg
           ls -la
           echo "Line 2"
           cd ..
