@@ -30,7 +30,7 @@ jobs:
         run: |
           git config --global user.signingkey C7C22626524C3A97
           git config --global commit.gpgsign true
-          git commit -S -m "test"
+          git commit -S -m "test" --allow-empty
 
       - name: Change the remote origin
         run: |
