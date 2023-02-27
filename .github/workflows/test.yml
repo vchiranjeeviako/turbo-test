@@ -28,7 +28,7 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          git config gpg.program
+          git config gpg.program --version
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
       - name: Change the remote origin
