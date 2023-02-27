@@ -29,6 +29,7 @@ jobs:
       - name: Get all the commits signed
         run: |
           git config --global user.signingkey C7C22626524C3A97
+          git config --global commit.gpgsign true
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
       - name: Change the remote origin
