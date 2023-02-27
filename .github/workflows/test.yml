@@ -27,6 +27,8 @@ jobs:
           git_commit_gpgsign: true 
 
       - name: Get all the commits signed
+        env:
+          GIT_MERGE_AUTOEDIT: "no"
         run: git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
 
       - name: Change the remote origin
