@@ -81,7 +81,7 @@ jobs:
         run: git push --set-upstream origin main
 
       - name: Push code if not creating new repo
-        if: ${{ !github.event.inputs.Create-New-Repo == 'false' }}
+        if: ${{ github.event.inputs.Create-New-Repo == 'false' }}
         run: |
           git checkout -b ${{ github.event.inputs.Branch-Name }}
           git push --set-upstream origin ${{ github.event.inputs.Branch-Name }}
