@@ -21,6 +21,15 @@ on:
         type: string
         required: true
 
+      Create-New-Repo:
+        description: Do we need to create new repo for this?
+        type: boolean
+        default: false
+
+      Branch-Name:
+        description: Name of the branch to push code to if repo already exists. Only applicable if above input is false
+        type: string
+
 jobs:
   Migrate-submodule-code:
     runs-on: ubuntu-20.04
@@ -48,6 +57,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           
       - name: Create the repo for submodule
+        if: ${{ github.event.inputs.Create-New-Repo }}
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
@@ -60,6 +70,15 @@ jobs:
           git config --global user.signingkey $KEY_ID
           git remote add origin https://vchiranjeeviako:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/vchiranjeeviako/${{ github.event.inputs.Name-Of-Submodule }}
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
-          git push --set-upstream origin main
         env:
           KEY_ID: ${{ secrets.KEY_ID }}
+
+      - name: Push code if creating new repo
+        if: ${{ github.event.inputs.Create-New-Repo }}
+        run: git push --set-upstream origin main
+
+      - name: Push code if not creating new repo
+        if: ${{ !github.event.inputs.Create-New-Repo }}
+        run: |
+          git checkout -b ${{ github.event.inputs.Branch-Name }}
+          git push --set-upstream origin ${{ github.event.inputs.Branch-Name }}
