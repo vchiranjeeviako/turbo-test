@@ -32,15 +32,11 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          echo "$GIT_AUTHOR_NAME"
           echo "$GPG_PRIVATE_KEY" > private.key
           gpg --import private.key
           cd ~/.gnupg/private-keys-v1.d
           ls -la
-          gpg --list-secret-keys --keyid-format=long
-          GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
+          gpg --list-secret-keys
         env:
-          GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
