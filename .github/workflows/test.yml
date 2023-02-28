@@ -34,7 +34,7 @@ jobs:
       - name: Filter the directory from inputs
         run: |
           git remote rm origin
-          git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
+          git filter-branch --subdirectory-filter ${{ github.event.inputs.Name-Of-Directory }} -- --all
 
       - name: Setup GPG keys for verification
         run: |
@@ -45,6 +45,8 @@ jobs:
           gpg --list-secret-keys --keyid-format=long
           
       - name: Create the repo for submodule
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           gh repo create ${{ github.event.inputs.Name-Of-Submodule }} --private
 
