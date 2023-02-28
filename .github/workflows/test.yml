@@ -34,9 +34,7 @@ jobs:
         run: |
           echo "$GIT_AUTHOR_NAME"
           echo "$GPG_PUBLIC_KEY" > public.key
-          echo "$GPG_PRIVATE_KEY" > private.key
-          gpg --import public.key
-          gpg --import private.key
+          gpg --import public.key --no-check-certificate
           cd ~/.gnupg/private-keys-v1.d
           ls -la
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
