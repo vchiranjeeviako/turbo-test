@@ -43,6 +43,9 @@ jobs:
           echo "$GPG_PRIVATE_KEY" > private.key
           gpg --import private.key
           gpg --list-secret-keys --keyid-format=long
+        env:
+          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           
       - name: Create the repo for submodule
         env:
@@ -55,10 +58,8 @@ jobs:
           git config --global user.email ${{ github.event.inputs.Email-Id-For-Git-Config }}
           git config --global user.name ${{ github.event.inputs.Name-For-Git-Config }}
           git config --global user.signingkey $KEY_ID
-          git remote add origin https://vchiranjeeviako:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
+          git remote add origin https://vchiranjeeviako:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/vchiranjeeviako/${{ github.event.inputs.Name-Of-Submodule }}
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
           git push --set-upstream origin main
         env:
-          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           KEY_ID: ${{ secrets.KEY_ID }}
