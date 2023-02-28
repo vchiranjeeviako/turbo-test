@@ -19,9 +19,10 @@ jobs:
           echo "${{ secrets.GPG_PRIVATE_KEY }}"
 
       - name: Import GPG key
-        run: echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        uses: crazy-max/ghaction-import-gpg@v1
         env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
 
       - name: Get all the commits signed
         run: |
