@@ -32,11 +32,11 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          echo "$GPG_PRIVATE_KEY" > private.key
-          gpg --import private.key
+          echo "$GPG_PRIVATE_KEY" > public.key
+          gpg --import public.key
           cd ~/.gnupg/private-keys-v1.d
           ls -la
-          gpg --list-secret-keys
+          gpg --list-public-keys
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
