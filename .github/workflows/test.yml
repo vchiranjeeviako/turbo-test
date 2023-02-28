@@ -28,4 +28,4 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          gpg --list-secret-keys --keyid-format=long 
+          gpg -K
