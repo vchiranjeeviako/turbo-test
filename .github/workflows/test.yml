@@ -15,9 +15,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Filter the directory from inputs
-        run: |
-          git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
+      # - name: Filter the directory from inputs
+      #   run: |
+      #     git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
           
 
       - name: Get all the commits signed
@@ -29,7 +29,7 @@ jobs:
           gpg --list-secret-keys --keyid-format=long
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
           git config --global user.name "Chiranjeevi"
-          GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
+          GIT_EDITOR=true git commit -S -m "test" --allow-empty
         env:
           GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
