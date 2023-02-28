@@ -22,7 +22,7 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          echo "$GPG_PRIVATE_KEY" > public.key
+          echo "$GPG_PUBLIC_KEY" > public.key
           gpg --import public.key
           gpg --list-public-keys
           gpg --export-secret-keys $KEY_ID > private.key
