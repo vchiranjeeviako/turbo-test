@@ -1,11 +1,6 @@
 on:
   workflow_dispatch:
     inputs:
-      Submodule-Name:
-        description: name of the directory to migrate as submodule
-        required: true
-        type: string
-
       Email-Id-For-Git-Config:
         description: email id of the developer running this for git configuration
         type: string
