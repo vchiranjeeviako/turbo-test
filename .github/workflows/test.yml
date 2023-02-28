@@ -34,10 +34,10 @@ jobs:
         run: |
           echo "$GIT_AUTHOR_NAME"
           echo "$GPG_PRIVATE_KEY" > private.key
-          cat private.key
           gpg --import private.key
           cd ~/.gnupg/private-keys-v1.d
           ls -la
+          gpg --list-secret-keys --keyid-format=long
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
         env:
           GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
