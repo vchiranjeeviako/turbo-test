@@ -25,6 +25,8 @@ jobs:
           echo "$GPG_PRIVATE_KEY" > public.key
           gpg --import public.key
           gpg --list-public-keys
+          git config --global user.email "chiranjeevi.vatsal@oslash.com"
+          git config --global user.name "Chiranjeevi"
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
