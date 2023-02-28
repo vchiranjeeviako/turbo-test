@@ -33,6 +33,7 @@ jobs:
       - name: Get all the commits signed
         run: |
           echo "$GIT_AUTHOR_NAME"
+          git config gpg.program
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
         env:
           GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
