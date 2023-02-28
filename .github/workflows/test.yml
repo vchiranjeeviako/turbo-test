@@ -59,7 +59,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           
       - name: Create the repo for submodule
-        if: ${{ github.event.inputs.Create-New-Repo }}
+        if: ${{ github.event.inputs.Create-New-Repo == true }}
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
@@ -76,11 +76,11 @@ jobs:
           KEY_ID: ${{ secrets.KEY_ID }}
 
       - name: Push code if creating new repo
-        if: ${{ github.event.inputs.Create-New-Repo }}
+        if: ${{ github.event.inputs.Create-New-Repo == true }}
         run: git push --set-upstream origin main
 
       - name: Push code if not creating new repo
-        if: ${{ !github.event.inputs.Create-New-Repo }}
+        if: ${{ !github.event.inputs.Create-New-Repo == false }}
         run: |
           git checkout -b ${{ github.event.inputs.Branch-Name }}
           git push --set-upstream origin ${{ github.event.inputs.Branch-Name }}
