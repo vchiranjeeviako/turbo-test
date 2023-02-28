@@ -24,10 +24,9 @@ jobs:
         run: |
           echo "$GPG_PUBLIC_KEY" > public.key
           gpg --import public.key
-          gpg --list-public-keys
           echo "$GPG_PRIVATE_KEY" > private.key
           gpg --import private.key
-          gpg --list-secret-keys
+          gpg --list-secret-keys --keyid-format=long
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
           git config --global user.name "Chiranjeevi"
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
