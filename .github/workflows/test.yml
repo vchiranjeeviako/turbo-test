@@ -1,10 +1,10 @@
 on:
   workflow_dispatch:
-    # inputs:
-    #   Submodule-Name:
-    #     description: name of the directory to migrate as submodule
-    #     required: true
-    #     type: string
+    inputs:
+      Submodule-Name:
+        description: name of the directory to migrate as submodule
+        required: true
+        type: string
 
 jobs:
   Migrate-submodule-code:
@@ -16,11 +16,7 @@ jobs:
           persist-credentials: false
 
       - name: Filter the directory from inputs
-        run: |
-          echo "Private key"
-          echo "${{ secrets.GPG_PRIVATE_KEY }}"
-          echo "Passphrase"
-          echo "${{ secrets.PASSPHRASE }}"
+        run: git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all     
 
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
@@ -33,4 +29,4 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          gpg --list-secret-keys --keyid-format=long
+          git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
