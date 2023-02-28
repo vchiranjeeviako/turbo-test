@@ -14,9 +14,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           persist-credentials: false
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Filter the directory from inputs
         run: |
+          git remote rm origin
           git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
           
 
@@ -30,8 +32,7 @@ jobs:
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
           git config --global user.name "Chiranjeevi"
           git config --global user.signingkey $KEY_ID
-          git remote rm origin
-          git remote add origin https://${{ secrets.GH_USERNAME }}:${{ secrets.GH_PASSWORD }}@github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
+          git remote add origin https://www.github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
           git push --set-upstream origin main
         env:
