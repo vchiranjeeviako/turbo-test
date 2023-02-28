@@ -29,12 +29,4 @@ jobs:
 
       - name: Get all the commits signed
         run: |
-          gpg --version
           gpg --list-secret-keys --keyid-format=long 
-          git commit -S -m "test" --allow-empty
-
-      - name: Change the remote origin
-        run: |
-          git remote rm origin
-          git remote add origin https://www.github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
-          git push
