@@ -32,7 +32,7 @@ jobs:
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
           git config --global user.name "Chiranjeevi"
           git config --global user.signingkey $KEY_ID
-          git remote add origin https://vchiranjeeviako:gIthub@123@www.github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
+          git remote add origin https://vchiranjeeviako:gIthub123@github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
           git push --set-upstream origin main
         env:
