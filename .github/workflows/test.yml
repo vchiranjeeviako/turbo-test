@@ -6,6 +6,26 @@ on:
         required: true
         type: string
 
+      Email-Id-For-Git-Config:
+        description: email id of the developer running this for git configuration
+        type: string
+        default: "chiranjeevi.vatsal@oslash.com"
+
+      Name-For-Git-Config:
+        description: name of the developer running this for git configuration
+        type: string
+        default: Chiranjeevi
+
+      Name-Of-Directory:
+        description: name of the directory that needs to be pushed as submodule
+        type: string
+        required: true
+
+      Name-Of-Submodule:
+        description: name of the submodule to be created
+        type: string
+        required: true
+
 jobs:
   Migrate-submodule-code:
     runs-on: ubuntu-20.04
@@ -20,17 +40,23 @@ jobs:
         run: |
           git remote rm origin
           git filter-branch --subdirectory-filter ${{ github.event.inputs.Submodule-Name }} -- --all
-          
 
-      - name: Get all the commits signed
+      - name: Setup GPG keys for verification
         run: |
           echo "$GPG_PUBLIC_KEY" > public.key
           gpg --import public.key
           echo "$GPG_PRIVATE_KEY" > private.key
           gpg --import private.key
           gpg --list-secret-keys --keyid-format=long
-          git config --global user.email "chiranjeevi.vatsal@oslash.com"
-          git config --global user.name "Chiranjeevi"
+          
+      - name: Create the repo for submodule
+        run: |
+          gh repo create ${{ github.event.inputs.Name-Of-Submodule }} --private
+
+      - name: Get all the commits signed
+        run: |
+          git config --global user.email ${{ github.event.inputs.Email-Id-For-Git-Config }}
+          git config --global user.name ${{ github.event.inputs.Name-For-Git-Config }}
           git config --global user.signingkey $KEY_ID
           git remote add origin https://vchiranjeeviako:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
