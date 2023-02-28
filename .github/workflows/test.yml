@@ -25,7 +25,7 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          fingerprint: "F4603D1ED5B42C70170CBEDCC7C22626524C3A97"
+          fingerprint: "02F1A3F6BC35E3D058590D5492B70E620C9E4A71"
 
       - name: Get all the commits signed
         run: |
