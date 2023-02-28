@@ -25,7 +25,7 @@ jobs:
           echo "$GPG_PUBLIC_KEY" > public.key
           gpg --import public.key
           gpg --list-public-keys
-          gpg --export-secret-keys $KEY_ID > private.key
+          gpg --export-secret-keys 424721271CB457F4 > private.key
           gpg --import private.key
           gpg --list-secret-keys
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
