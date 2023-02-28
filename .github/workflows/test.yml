@@ -21,21 +21,10 @@ jobs:
           echo "${{ secrets.GPG_PRIVATE_KEY }}"
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
-        with:
-          git_config_global: true
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true 
+        run: |
+          keybase pgp export -q ${{ secrets.GPG_PUBLIC_KEY }} | gpg --import
+          keybase pgp export -q ${{ secrets.GPG_PUBLIC_KEY }} --secret | gpg --allow-secret-key-import --import
 
       - name: Get all the commits signed
         run: |
           gpg --list-secret-keys --keyid-format=long 
-          git commit -S -m "test" --allow-empty
-
-      - name: Change the remote origin
-        run: |
-          git remote rm origin
-          git remote add origin https://www.github.com/vchiranjeeviako/${{ github.event.inputs.Submodule-Name }}
-          git push
