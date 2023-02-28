@@ -29,6 +29,7 @@ jobs:
           gpg --list-secret-keys --keyid-format=long
           git config --global user.email "chiranjeevi.vatsal@oslash.com"
           git config --global user.name "Chiranjeevi"
+          git config --global user.signingkey $KEY_ID
           GIT_EDITOR=true git commit -S -m "test" --allow-empty
         env:
           GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
