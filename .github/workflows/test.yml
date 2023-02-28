@@ -6,12 +6,12 @@ on:
       Email-Id-For-Git-Config:
         description: email id of the developer running this for git configuration
         type: string
-        default: "chiranjeevi.vatsal@oslash.com"
+        required: true
 
       Name-For-Git-Config:
         description: name of the developer running this for git configuration
         type: string
-        default: Chiranjeevi
+        required: true
 
       Name-Of-Directory:
         description: name of the directory that needs to be pushed as submodule
@@ -25,8 +25,9 @@ on:
 
       Create-New-Repo:
         description: Do we need to create new repo for this?
-        type: boolean
-        default: false
+        type: string
+        default: 'false'
+        required: true
 
       Branch-Name:
         description: Name of the branch to push code to if repo already exists. Only applicable if above input is false
@@ -59,7 +60,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           
       - name: Create the repo for submodule
-        if: ${{ github.event.inputs.Create-New-Repo == true }}
+        if: ${{ github.event.inputs.Create-New-Repo == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
@@ -76,11 +77,11 @@ jobs:
           KEY_ID: ${{ secrets.KEY_ID }}
 
       - name: Push code if creating new repo
-        if: ${{ github.event.inputs.Create-New-Repo == true }}
+        if: ${{ github.event.inputs.Create-New-Repo == 'true' }}
         run: git push --set-upstream origin main
 
       - name: Push code if not creating new repo
-        if: ${{ !github.event.inputs.Create-New-Repo == false }}
+        if: ${{ !github.event.inputs.Create-New-Repo == 'false' }}
         run: |
           git checkout -b ${{ github.event.inputs.Branch-Name }}
           git push --set-upstream origin ${{ github.event.inputs.Branch-Name }}
