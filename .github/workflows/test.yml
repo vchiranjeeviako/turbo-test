@@ -33,7 +33,7 @@ jobs:
       - name: Get all the commits signed
         run: |
           echo "$GIT_AUTHOR_NAME"
-          cd ~/.gnupg/private-keys-v1.d
+          cd ~/.gnupg
           ls -la
           git config gpg.program
           GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i --root
